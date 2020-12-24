@@ -1,9 +1,9 @@
 package smscode
 
 import (
+	"github.com/lib4dev/vcs/modules/const/conf"
+	"github.com/micro-plat/hydra/components"
 	"github.com/micro-plat/lib4go/types"
-	"gitlab.100bm.cn/micro-plat/vcs/vcs/modules/const/conf"
-	"gitlab.100bm.cn/micro-plat/vcs/vcs/modules/sdkcache"
 )
 
 type Code struct {
@@ -26,7 +26,7 @@ func NewCode() (*Code, error) {
 
 }
 
-func (s *Code) Send(i interface{}, info *SendRequest) (result types.XMap, err error) {
+func (s *Code) Send(info *SendRequest, platName string) (result types.XMap, err error) {
 
 	//1.验证参数
 	if err = info.Valid(); err != nil {
@@ -34,20 +34,19 @@ func (s *Code) Send(i interface{}, info *SendRequest) (result types.XMap, err er
 	}
 
 	//2.获取缓存数据操作对象
-	sdkCache, err := sdkcache.NewSDKCache(i)
+	sdkCache, err := components.Def.Cache().GetCache(conf.CacheName)
 	if err != nil {
 		return nil, err
 	}
 
 	//3.请求发送短信
-	r, err := s.SendRequest(info, sdkCache.Container)
+	r, err := s.SendRequest(info)
 	if err != nil {
 		return
 	}
 
 	//4 保存验证码到缓存
-	platName := sdkCache.Container.GetPlatName()
-	err = s.cache.Save(sdkCache.Cache, platName, info.Ident, info.PhoneNo, info.Keywords)
+	err = s.cache.Save(sdkCache, platName, info.Ident, info.PhoneNo, info.Keywords)
 	if err != nil {
 		return
 	}
@@ -58,23 +57,22 @@ func (s *Code) Send(i interface{}, info *SendRequest) (result types.XMap, err er
 	}, nil
 }
 
-func (s *Code) Validate(i interface{}, ident, phone, code string) (err error) {
+func (s *Code) Validate(ident, phone, code, platName string) (err error) {
 
 	//1.获取缓存数据操作对象
-	sdkCache, err := sdkcache.NewSDKCache(i)
+	sdkCache, err := components.Def.Cache().GetCache(conf.CacheName)
 	if err != nil {
 		return err
 	}
 
 	//2 校验错误次数
-	platName := sdkCache.Container.GetPlatName()
-	errCount, err := s.cache.CheckErrorLimit(sdkCache.Cache, platName, ident, phone)
+	errCount, err := s.cache.CheckErrorLimit(sdkCache, platName, ident, phone)
 	if err != nil {
 		return
 	}
 
 	//3. 校验验证码
-	err = s.cache.Verify(sdkCache.Cache, platName, ident, phone, code, errCount)
+	err = s.cache.Verify(sdkCache, platName, ident, phone, code, errCount)
 	if err != nil {
 		return
 	}

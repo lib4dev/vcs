@@ -1,8 +1,7 @@
 package vcs
 
 import (
-	"github.com/micro-plat/lib4go/types"
-	"gitlab.100bm.cn/micro-plat/vcs/vcs/modules/smscode"
+	"github.com/lib4dev/vcs/modules/smscode"
 )
 
 type SendRequest struct {
@@ -19,11 +18,10 @@ type SendResult struct {
 }
 
 //SendSmsCode 发送短信验证码 *使用前,请先配置短信发送的rpc地址 SetConfig(WithSmsSendUrl(""))
-//i-->*context.Context/component.IContainer
 //req-->短信验证码获取实体
 //实体req_id:请求id,ident:系统标识,phone_no:手机号,template_id:短信模板编号,keywords:发送内容,delivery_time:定时发送时间(可空),格式：yyyy-mm-dd hh:mm:ss
 //返回值result {"record_id":"xxxx"}
-func SendSmsCode(i interface{}, req *SendRequest) (result *SendResult, err error) {
+func SendSmsCode(req *SendRequest, platName string) (result *SendResult, err error) {
 
 	info := &smscode.SendRequest{
 		ReqID:        req.ReqID,
@@ -38,13 +36,13 @@ func SendSmsCode(i interface{}, req *SendRequest) (result *SendResult, err error
 	if err != nil {
 		return nil, err
 	}
-	r, err := obj.Send(i, info)
+	r, err := obj.Send(info, platName)
 	if err != nil {
 		return nil, err
 	}
 
 	result = &SendResult{}
-	err = types.Map2Struct(r, result)
+	err = r.ToStruct(result)
 	if err != nil {
 		return nil, err
 	}
@@ -53,14 +51,13 @@ func SendSmsCode(i interface{}, req *SendRequest) (result *SendResult, err error
 }
 
 //VerifySmsCode 验证短信验证码
-//i-->*context.Context/component.IContainer
 //ident-->系统标识,phone-->手机号,code-->验证码
-func VerifySmsCode(i interface{}, ident, phone, code string) (err error) {
+func VerifySmsCode(ident, phone, code, platName string) (err error) {
 
 	obj, err := smscode.NewCode()
 	if err != nil {
 		return err
 	}
 
-	return obj.Validate(i, ident, phone, code)
+	return obj.Validate(ident, phone, code, platName)
 }

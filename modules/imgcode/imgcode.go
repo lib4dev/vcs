@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"io"
 
-	"gitlab.100bm.cn/micro-plat/vcs/vcs/modules/const/conf"
-	"gitlab.100bm.cn/micro-plat/vcs/vcs/modules/sdkcache"
-	"gitlab.100bm.cn/micro-plat/vcs/vcs/modules/util"
+	"github.com/lib4dev/vcs/modules/const/conf"
+	"github.com/lib4dev/vcs/modules/util"
+	"github.com/micro-plat/hydra/components"
 )
 
 //Code
@@ -30,7 +30,7 @@ func NewCode() (*Code, error) {
 }
 
 //Get 生成图形验证码
-func (s *Code) Get(i interface{}, w io.Writer, ident, account string) (err error) {
+func (s *Code) Get(w io.Writer, ident, account, platName string) (err error) {
 
 	//1.获取图形验证码
 	codeByte, validCode := util.GetImgCode()
@@ -42,34 +42,32 @@ func (s *Code) Get(i interface{}, w io.Writer, ident, account string) (err error
 	}
 
 	//3.获取缓存数据操作对象
-	sdkCache, err := sdkcache.NewSDKCache(i)
+	sdkCache, err := components.Def.Cache().GetCache(conf.CacheName)
 	if err != nil {
 		return err
 	}
 
 	//4.保存到缓存
-	platName := sdkCache.Container.GetPlatName()
-	err = s.cache.Save(sdkCache.Cache, platName, ident, account, validCode)
+	err = s.cache.Save(sdkCache, platName, ident, account, validCode)
 	if err != nil {
 		return err
 	}
 
 	//5.账号错误次数清除
-	return s.cache.ResetErrLimit(sdkCache.Cache, platName, ident, account)
+	return s.cache.ResetErrLimit(sdkCache, platName, ident, account)
 
 }
 
 //Verify 校验图形验证码
-func (s *Code) Verify(i interface{}, ident, account, code string) (err error) {
+func (s *Code) Verify(ident, account, code, platName string) (err error) {
 
 	//1.获取缓存数据操作对象
-	sdkCache, err := sdkcache.NewSDKCache(i)
+	sdkCache, err := components.Def.Cache().GetCache(conf.CacheName)
 	if err != nil {
 		return
 	}
 
 	//2.保存code到缓存中
-	platName := sdkCache.Container.GetPlatName()
-	return s.cache.Verify(sdkCache.Cache, platName, ident, account, code)
+	return s.cache.Verify(sdkCache, platName, ident, account, code)
 
 }

@@ -1,6 +1,6 @@
 package vcs
 
-import "gitlab.100bm.cn/micro-plat/vcs/vcs/modules/const/conf"
+import "github.com/lib4dev/vcs/modules/const/conf"
 
 type Option func()
 
@@ -23,9 +23,9 @@ func WithImgConfig(c *conf.SmsCodeConf) Option {
 	}
 }
 
-func WithCacheConfig(cacheName string) Option {
+func WithCacheConfig(cacheName, httpName string) Option {
 	return func() {
-		conf.Config(cacheName)
+		conf.Config(cacheName, httpName)
 	}
 }
 
