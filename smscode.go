@@ -19,9 +19,9 @@ type SendResult struct {
 	RecordID string `json:"record_id"`
 }
 
-//SendSmsCode 发送短信验证码 *使用前,请先配置短信发送的rpc地址 SetConfig(WithSmsSendUrl(""))
-//req-->短信验证码获取实体
-//实体req_id:请求id,ident:系统标识,user_account:手机号,template_id:短信模板编号,keywords:发送内容,delivery_time:定时发送时间(可空),格式：yyyy-mm-dd hh:mm:ss
+//SendSmsCode 发送消息验证码 *使用前,请先配置消息发送的rpc地址 SetConfig(WithSmsSendUrl(""))
+//req-->消息验证码获取实体
+//实体req_id:请求id,ident:系统标识,user_account:手机号,template_id:消息模板编号,keywords:发送内容,delivery_time:定时发送时间(可空),格式：yyyy-mm-dd hh:mm:ss
 //返回值result {"record_id":"xxxx"}
 func SendSmsCode(req *SendRequest, platName string) (result *SendResult, err error) {
 
@@ -53,7 +53,7 @@ func SendSmsCode(req *SendRequest, platName string) (result *SendResult, err err
 	return
 }
 
-//VerifySmsCode 验证短信验证码
+//VerifySmsCode 验证消息验证码
 //ident-->系统标识,userAccount-->手机号,code-->验证码
 func VerifySmsCode(ident, userAccount, code, platName string) (err error) {
 

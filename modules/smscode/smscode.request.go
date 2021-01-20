@@ -3,7 +3,7 @@ package smscode
 import (
 	"encoding/json"
 	"fmt"
-
+	"net/http"
 	"github.com/lib4dev/vcs/modules/const/conf"
 	"github.com/micro-plat/hydra/components"
 )
@@ -23,7 +23,9 @@ func (s *Code) SendRequest(info *SendRequest) (r *SendResult, err error) {
 	}
 
 	url := conf.SmsCodeSetting.SmsCodeSendRequestURL
-	resultVal, status, err := client.Post(url, string(b))
+	resultVal, status, err := client.Request(http.MethodPost, url, string(b), "UTF-8", http.Header{
+		"Content-Type": []string{"application/json"},
+	})
 	if err != nil || status != 200 {
 		return nil, fmt.Errorf("发送消息请求错误,status:%d,url:%s,params:%+v,err:%+v", status, url, string(b), err)
 	}
