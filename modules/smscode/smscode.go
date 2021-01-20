@@ -46,7 +46,7 @@ func (s *Code) Send(info *SendRequest, platName string) (result types.XMap, err 
 	}
 
 	//4 保存验证码到缓存
-	err = s.cache.Save(sdkCache, platName, info.Ident, info.PhoneNo, info.Keywords)
+	err = s.cache.Save(sdkCache, platName, info.Ident, info.UserAccount, info.Keywords)
 	if err != nil {
 		return
 	}

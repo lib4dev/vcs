@@ -74,9 +74,9 @@ func (s *CodeCache) Verify(c caches.ICache, platName, ident, phone, code, errCou
 		return errs.NewError(errorcode.HTTPErrorKeyNotExistError, "短信验证码缓存不存在")
 	}
 
-	cacheCode, err1 := c.Get(key)
-	if err1 != nil {
-		err = fmt.Errorf("VerifySmsCode:获取缓存中的验证码失败,err%+v", err1)
+	cacheCode, err := c.Get(key)
+	if err != nil {
+		err = fmt.Errorf("VerifySmsCode:获取缓存中的验证码失败,err%+v", err)
 		return
 	}
 
