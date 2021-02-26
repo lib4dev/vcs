@@ -3,6 +3,8 @@ github.com/BurntSushi/toml
 # github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef
 ## explicit
 github.com/asaskevich/govalidator
+# github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
+github.com/chzyer/readline
 # github.com/clbanning/mxj v1.8.4
 github.com/clbanning/mxj
 # github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d
@@ -23,6 +25,8 @@ github.com/dsnet/compress/internal/prefix
 # github.com/eclipse/paho.mqtt.golang v1.2.0
 github.com/eclipse/paho.mqtt.golang
 github.com/eclipse/paho.mqtt.golang/packets
+# github.com/fsnotify/fsnotify v1.4.9
+github.com/fsnotify/fsnotify
 # github.com/go-redis/redis v6.15.9+incompatible
 github.com/go-redis/redis
 github.com/go-redis/redis/internal
@@ -39,13 +43,33 @@ github.com/golang/protobuf/ptypes/duration
 github.com/golang/protobuf/ptypes/timestamp
 # github.com/golang/snappy v0.0.2
 github.com/golang/snappy
+# github.com/juju/ansiterm v0.0.0-20180109212912-720a0952cc2a
+github.com/juju/ansiterm
+github.com/juju/ansiterm/tabwriter
+# github.com/keybase/go-ps v0.0.0-20190827175125-91aafc93ba19
+github.com/keybase/go-ps/darwincgo
+# github.com/lib4dev/cli v1.2.8
+github.com/lib4dev/cli
+github.com/lib4dev/cli/cmds
+github.com/lib4dev/cli/logger
+# github.com/lunixbochs/vtclean v0.0.0-20180621232353-2d01aacdc34a
+github.com/lunixbochs/vtclean
+# github.com/manifoldco/promptui v0.8.0
+github.com/manifoldco/promptui
+github.com/manifoldco/promptui/list
+github.com/manifoldco/promptui/screenbuf
+# github.com/mattn/go-colorable v0.0.9
+github.com/mattn/go-colorable
+# github.com/mattn/go-isatty v0.0.12
+github.com/mattn/go-isatty
 # github.com/mholt/archiver v3.1.1+incompatible
 github.com/mholt/archiver
 # github.com/micro-plat/gmq v1.0.1
 github.com/micro-plat/gmq/mqtt
 github.com/micro-plat/gmq/mqtt/client
-# github.com/micro-plat/hydra v1.0.5
+# github.com/micro-plat/hydra v1.0.5 => ../../../github.com/micro-plat/hydra
 ## explicit
+github.com/micro-plat/hydra
 github.com/micro-plat/hydra/components
 github.com/micro-plat/hydra/components/caches
 github.com/micro-plat/hydra/components/caches/cache
@@ -74,23 +98,34 @@ github.com/micro-plat/hydra/conf/server/acl/blacklist
 github.com/micro-plat/hydra/conf/server/acl/limiter
 github.com/micro-plat/hydra/conf/server/acl/proxy
 github.com/micro-plat/hydra/conf/server/acl/whitelist
+github.com/micro-plat/hydra/conf/server/api
 github.com/micro-plat/hydra/conf/server/apm
 github.com/micro-plat/hydra/conf/server/auth/apikey
 github.com/micro-plat/hydra/conf/server/auth/basic
 github.com/micro-plat/hydra/conf/server/auth/jwt
 github.com/micro-plat/hydra/conf/server/auth/ras
+github.com/micro-plat/hydra/conf/server/cron
 github.com/micro-plat/hydra/conf/server/header
 github.com/micro-plat/hydra/conf/server/metric
 github.com/micro-plat/hydra/conf/server/mqc
+github.com/micro-plat/hydra/conf/server/processor
 github.com/micro-plat/hydra/conf/server/queue
 github.com/micro-plat/hydra/conf/server/render
 github.com/micro-plat/hydra/conf/server/router
+github.com/micro-plat/hydra/conf/server/rpc
 github.com/micro-plat/hydra/conf/server/static
 github.com/micro-plat/hydra/conf/server/task
 github.com/micro-plat/hydra/conf/vars
+github.com/micro-plat/hydra/conf/vars/cache
+github.com/micro-plat/hydra/conf/vars/cache/cacheredis
+github.com/micro-plat/hydra/conf/vars/cache/gocache
+github.com/micro-plat/hydra/conf/vars/cache/memcached
 github.com/micro-plat/hydra/conf/vars/db
+github.com/micro-plat/hydra/conf/vars/db/mysql
+github.com/micro-plat/hydra/conf/vars/db/oracle
 github.com/micro-plat/hydra/conf/vars/http
 github.com/micro-plat/hydra/conf/vars/queue
+github.com/micro-plat/hydra/conf/vars/queue/lmq
 github.com/micro-plat/hydra/conf/vars/queue/mqtt
 github.com/micro-plat/hydra/conf/vars/queue/queueredis
 github.com/micro-plat/hydra/conf/vars/queue/xmq
@@ -99,38 +134,71 @@ github.com/micro-plat/hydra/conf/vars/rlog
 github.com/micro-plat/hydra/conf/vars/rpc
 github.com/micro-plat/hydra/context
 github.com/micro-plat/hydra/context/internal
+github.com/micro-plat/hydra/creator
 github.com/micro-plat/hydra/global
 github.com/micro-plat/hydra/global/compatible
+github.com/micro-plat/hydra/hydra/cmds/conf
+github.com/micro-plat/hydra/hydra/cmds/db
+github.com/micro-plat/hydra/hydra/cmds/install
+github.com/micro-plat/hydra/hydra/cmds/pkgs
+github.com/micro-plat/hydra/hydra/cmds/pkgs/rlog
+github.com/micro-plat/hydra/hydra/cmds/pkgs/service
+github.com/micro-plat/hydra/hydra/cmds/remove
+github.com/micro-plat/hydra/hydra/cmds/run
+github.com/micro-plat/hydra/hydra/cmds/start
+github.com/micro-plat/hydra/hydra/cmds/status
+github.com/micro-plat/hydra/hydra/cmds/stop
+github.com/micro-plat/hydra/hydra/cmds/update
+github.com/micro-plat/hydra/hydra/servers
+github.com/micro-plat/hydra/pkgs
 github.com/micro-plat/hydra/registry
+github.com/micro-plat/hydra/registry/registry/filesystem
+github.com/micro-plat/hydra/registry/registry/localmemory
+github.com/micro-plat/hydra/registry/registry/redis
+github.com/micro-plat/hydra/registry/registry/redis/internal
+github.com/micro-plat/hydra/registry/registry/zookeeper
 github.com/micro-plat/hydra/registry/watcher
-# github.com/micro-plat/lib4go v1.0.10
+github.com/micro-plat/hydra/registry/watcher/wchild
+github.com/micro-plat/hydra/registry/watcher/wvalue
+github.com/micro-plat/hydra/services
+# github.com/micro-plat/lib4go v1.0.10 => ../../../github.com/micro-plat/lib4go
 ## explicit
 github.com/micro-plat/lib4go/concurrent/cmap
 github.com/micro-plat/lib4go/db
 github.com/micro-plat/lib4go/db/tpl
 github.com/micro-plat/lib4go/encoding
 github.com/micro-plat/lib4go/encoding/base64
+github.com/micro-plat/lib4go/envs
 github.com/micro-plat/lib4go/errs
 github.com/micro-plat/lib4go/file
 github.com/micro-plat/lib4go/jsons
 github.com/micro-plat/lib4go/logger
 github.com/micro-plat/lib4go/net
+github.com/micro-plat/lib4go/osext
+github.com/micro-plat/lib4go/ps
 github.com/micro-plat/lib4go/registry
+github.com/micro-plat/lib4go/security/crc32
 github.com/micro-plat/lib4go/security/des
 github.com/micro-plat/lib4go/security/jwt
 github.com/micro-plat/lib4go/security/md5
 github.com/micro-plat/lib4go/security/sha1
 github.com/micro-plat/lib4go/security/sha256
+github.com/micro-plat/lib4go/sysinfo/pipes
 github.com/micro-plat/lib4go/tgo
 github.com/micro-plat/lib4go/types
 github.com/micro-plat/lib4go/utility
+github.com/micro-plat/lib4go/zk
 # github.com/nwaples/rardecode v1.1.0
 github.com/nwaples/rardecode
 # github.com/pierrec/lz4 v2.6.0+incompatible
 github.com/pierrec/lz4
 github.com/pierrec/lz4/internal/xxh32
+# github.com/pkg/profile v1.2.1
+github.com/pkg/profile
 # github.com/russross/blackfriday/v2 v2.0.1
 github.com/russross/blackfriday/v2
+# github.com/samuel/go-zookeeper v0.0.0-20200724154423-2164a8ac840e
+github.com/samuel/go-zookeeper/zk
 # github.com/shopspring/decimal v1.2.0
 github.com/shopspring/decimal
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
@@ -167,6 +235,11 @@ golang.org/x/net/websocket
 # golang.org/x/sys v0.0.0-20201221093633-bc327ba9c2f0
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
+golang.org/x/sys/windows
+golang.org/x/sys/windows/registry
+golang.org/x/sys/windows/svc
+golang.org/x/sys/windows/svc/eventlog
+golang.org/x/sys/windows/svc/mgr
 # golang.org/x/text v0.3.4
 golang.org/x/text/encoding
 golang.org/x/text/encoding/internal
@@ -255,3 +328,7 @@ google.golang.org/protobuf/runtime/protoimpl
 google.golang.org/protobuf/types/known/anypb
 google.golang.org/protobuf/types/known/durationpb
 google.golang.org/protobuf/types/known/timestamppb
+# gopkg.in/yaml.v2 v2.3.0
+gopkg.in/yaml.v2
+# github.com/micro-plat/hydra => ../../../github.com/micro-plat/hydra
+# github.com/micro-plat/lib4go => ../../../github.com/micro-plat/lib4go
