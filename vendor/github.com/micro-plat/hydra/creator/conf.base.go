@@ -7,7 +7,6 @@ import (
 
 	"github.com/micro-plat/hydra/conf/server/apm"
 	"github.com/micro-plat/hydra/conf/server/metric"
-	"github.com/micro-plat/hydra/conf/server/processor"
 )
 
 type ISUB interface {
@@ -23,9 +22,6 @@ func (b BaseBuilder) Sub(name string, s ...interface{}) ISUB {
 	}
 	tp := reflect.TypeOf(s[0])
 	val := reflect.ValueOf(s[0])
-	if tp.Kind() == reflect.Ptr {
-		val = val.Elem()
-	}
 	switch tp.Kind() {
 	case reflect.String:
 		b[name] = json.RawMessage([]byte(val.Interface().(string)))
@@ -46,12 +42,6 @@ func (b BaseBuilder) Metric(host string, db string, cron string, opts ...metric.
 //APM 构建APM配置
 func (b BaseBuilder) APM(address string) BaseBuilder {
 	b[apm.TypeNodeName] = apm.New(address)
-	return b
-}
-
-//Processor 构建APM配置
-func (b BaseBuilder) Processor() BaseBuilder {
-	b[processor.TypeNodeName] = processor.New()
 	return b
 }
 

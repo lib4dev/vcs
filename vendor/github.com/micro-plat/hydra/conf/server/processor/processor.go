@@ -6,7 +6,6 @@ import (
 
 	"github.com/asaskevich/govalidator"
 	"github.com/micro-plat/hydra/conf"
-	"github.com/micro-plat/hydra/conf/server/router"
 )
 
 //TypeNodeName processor配置节点名
@@ -19,7 +18,7 @@ type IProcessor interface {
 
 //Processor Processor
 type Processor struct {
-	ServicePrefix string `json:"servicePrefix,omitempty" valid:"lowercase,maxstringlength(16),matches(^(/[a-z0-9]+)$)"  toml:"servicePrefix,omitempty" label:"服务前缀"`
+	ServicePrefix string `json:"servicePrefix,omitempty" valid:"maxstringlength(16),matches(^/[a-z0-9]+$)"  toml:"servicePrefix,omitempty" label:"服务前缀"`
 }
 
 //New 构建api server配置信息
@@ -28,14 +27,10 @@ func New(opts ...Option) *Processor {
 	for _, opt := range opts {
 		opt(m)
 	}
-	return m
-}
-
-//TreatRouters TreatRouters
-func (p *Processor) TreatRouters(routers []*router.Router) {
-	for i := range routers {
-		routers[i].RealPath = fmt.Sprintf("%s%s", p.ServicePrefix, routers[i].Path)
+	if ok, err := govalidator.ValidateStruct(m); !ok {
+		panic(fmt.Errorf("Processor配置数据有误:%v", err))
 	}
+	return m
 }
 
 //GetConf 设置Processor
